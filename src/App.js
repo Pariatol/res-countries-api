@@ -6,7 +6,12 @@ import {
   Link
 } from "react-router-dom";
 
-import CountryPage from './countryPage'
+import CountryPage from './countryPage';
+import Header from './Header';
+import Countries from './Countries';
+import SearchForCountry from './SearchForCountry';
+import FilterByRegion from './FilterByRegion';
+
 
 import './App.css';
 
@@ -122,150 +127,6 @@ function App(){
     );
 }
 
-function Header(props){
-
-  
-  let noLinkStyle = {
-    textDecoration:"none",
-    color:"black"
-  }
-
-
-    return(
-      <header className="head"  style={props.isDarkMode?props.darkHeader:null}>
-        <div className="headWrapper">
-        <Link to="/" style={noLinkStyle}>
-
-          <div className="headTitle" style={props.isDarkMode?props.darkHeader:null}>
-            Where in the world?
-          </div>
-          </Link>
-
-          <div className="darkModeToggler" onClick={()=>props.setDarkMode(!props.isDarkMode)}>
-            <i className="far fa-moon"></i>&nbsp;Dark Mode
-          </div>
-        </div>
-      </header>
-    );
-  }
-
-  function Countries(props){
-
-
-    let noLinkStyle = {
-      textDecoration:"none",
-      color:"black"
-    }
-
-
-    return(
-      <div className="countries">
-        {
-          props.searchedRegion===""?
-          props.countries.slice(0,9).map((item,index)=>{
-            return(
-            <Link to={`/${item.name}`}  style={props.isDarkMode?props.linkStyleDark:props.linkStyleLight}>
-            {index===8?<div className="hiddenDiv"></div>:
-            <div className="country" style={props.isDarkMode?props.darkModeElement:null} key={item.name}>
-              <div className="imgWrap"><img className="countryPic" src={item.flag}/></div>
-              <div className="aboutCountry">
-                <div className="countryName">{item.name}</div>
-                <div className="countryPopulation countryInfo"><span className="boldWord">Population:</span> {item.population}</div>
-                <div className="countryRegion countryInfo"><span className="boldWord">Region:</span> {item.region}</div>
-                <div className="countryCapital countryInfo"><span className="boldWord">Capital:</span> {item.capital}</div>
-              </div>
-  
-            </div>
-            }
-            </Link>
-            
-            );
-            
-          }):props.countries.filter(item=>item.region===props.searchedRegion).map((item,index)=>{
-            return(
-            <Link to={`/${item.name}`}  style={props.isDarkMode?props.linkStyleDark:props.linkStyleLight}>
-            {index===props.countries.filter(item=>item.region===props.searchedRegion).length-1?<div className="hiddenDiv"></div>:
-            <div className="country" key={item.name} style={props.isDarkMode?props.darkModeElement:null} key={item.name}>
-              <div className="imgWrap"><img className="countryPic" src={item.flag}/></div>
-              <div className="aboutCountry">
-                <div className="countryName">{item.name}</div>
-                <div className="countryPopulation countryInfo"><span className="boldWord">Population:</span> {item.population}</div>
-                <div className="countryRegion countryInfo"><span className="boldWord">Region:</span> {item.region}</div>
-                <div className="countryCapital countryInfo"><span className="boldWord">Capital:</span> {item.capital}</div>
-              </div>
-  
-            </div>
-            }
-            </Link>
-            
-            );
-            
-          })
-        }
-  
-      </div>
-    );
-  }
-
-  function SearchForCountry(props){
-
-    const [searchResult, setSearchResult] = useState("");
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      props.setSearchedCountry(document.querySelector('form').inputCountry.value);
-      props.countries.find(element=>element.name===props.searchedCountry)===undefined?setSearchResult("Invalid country name"):setSearchResult("Search for a country...");
-      console.log(searchResult);
-    }
-
-    return(
-      <div className="searchForCountry">
-        <form onSubmit={handleSubmit} >
-        <input type="text" name="inputCountry" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search for a country..." className={props.isDarkMode?"inputDark":null} style={props.isDarkMode?props.searchDark:null}/>
-        <i  className={props.isDarkMode?"fas fa-search searchDarkMode":"fas fa-search"}></i>
-        </form>
-        {props.searchedCountry!==""?props.countries.find(element=>element.name===props.searchedCountry)===undefined?<div class="searchResult">No Country Found. Try Again.</div>:null:null}
-
-      </div>
-  
-    )
-  }
-  
-  function FilterByRegion(props){
-  
-    const handleClick = () => {    
-        document.querySelector('.optionsEmulation').classList.toggle('displayToggle');
-    }
-
-  
-    return(
-      <div className="filterByRegion">
-  
-        {document.onclick = function(e){
-                 if(e.target.id !== 'me'){
-                    document.querySelector('.optionsEmulation').classList.remove('displayToggle');
-                 }
-        }}
-        <div class="selectEmulation" id="me"  onClick={handleClick} style={props.isDarkMode?props.searchDark:null}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter by Region
-              <i class="fas fa-sort-down"></i>
-  
-          <div class="optionsEmulation" style={props.isDarkMode?props.searchDark:null}>
-            <div onClick={()=>props.setSearchedRegion('Africa')} class="Africa option">Africa</div>
-            <div onClick={()=>props.setSearchedRegion('Americas')} class="America option">America</div>
-            <div onClick={()=>props.setSearchedRegion('Asia')} class="Asia option">Asia</div>
-            <div onClick={()=>props.setSearchedRegion('Europe')} class="Europe option">Europe</div>
-            <div onClick={()=>props.setSearchedRegion('Oceania')} class="Oceania option">Oceania</div>
-  
-  
-  
-          </div>
-          
-        </div>
-  
-      </div>
-  
-    )
-  }
 
 
 export default App;
