@@ -74,9 +74,26 @@ function App(){
       boxShadow:"0px 2px 5px 3px #292829",
       color:"hsl(0, 0%, 100%)"
 
-
     }
 
+    const stylePopulationNb = (nb) => {
+      nb = nb.toString();
+      nb = nb.split("").reverse().join("");
+      let counter = 0;
+      let toReturn = "";
+      for(let i=0;i<nb.length;i++){
+        if(counter<3){
+          toReturn += nb[i];
+        } else if(counter===3){
+          toReturn += ",";
+          toReturn += nb[i];
+          counter = 0;
+        }
+        counter += 1;
+    
+        }
+      return toReturn.split("").reverse().join("");
+    }
 
     useEffect(() => {
         if(countries.length===0){
@@ -96,7 +113,7 @@ function App(){
                 return(
                 <Route path={`/${item.name}`}>
                     <Header setDarkMode={setDarkMode} isDarkMode={isDarkMode} darkHeader={darkHeader}/>
-                    <CountryPage country={item.name} countries={countries} setSearchedCountry={setSearchedCountry} searchedCountry={searchedCountry} isDarkMode={isDarkMode} darkModeElement={darkModeElement} darkModeButton={darkModeButton}/>
+                    <CountryPage country={item.name} countries={countries} setSearchedCountry={setSearchedCountry} searchedCountry={searchedCountry} isDarkMode={isDarkMode} darkModeElement={darkModeElement} darkModeButton={darkModeButton} stylePopulationNb={stylePopulationNb}/>
                 </Route>
                 );
             })}    
@@ -106,12 +123,12 @@ function App(){
                 <Route path="/">
                     <Header setDarkMode={setDarkMode} isDarkMode={isDarkMode} darkHeader={darkHeader}/>
                     <div className="mainWrap">
-                      {countries.find(element=>element.name===searchedCountry)!==undefined?<CountryPage setSearchedCountry={setSearchedCountry} searchedCountry={searchedCountry} countries={countries} country={searchedCountry} isDarkMode={isDarkMode} darkModeElement={darkModeElement} darkModeButton={darkModeButton}/>
+                      {countries.find(element=>element.name===searchedCountry)!==undefined?<CountryPage setSearchedCountry={setSearchedCountry} searchedCountry={searchedCountry} countries={countries} country={searchedCountry} isDarkMode={isDarkMode} darkModeElement={darkModeElement} darkModeButton={darkModeButton} stylePopulationNb={stylePopulationNb}/>
                       :<React.Fragment><div className="searchItems">
                           <SearchForCountry countries={countries} setSearchedCountry={setSearchedCountry} searchedCountry={searchedCountry} isDarkMode={isDarkMode} setDarkMode={setDarkMode} searchDark={searchDark}/>
                           <FilterByRegion setSearchedRegion={setSearchedRegion} searchedRegion={setSearchedRegion} isDarkMode={isDarkMode} setDarkMode={setDarkMode} searchDark={searchDark}/>
                         </div>
-                        <Countries  countries={countries} searchedRegion={searchedRegion} isDarkMode={isDarkMode} darkModeElement={darkModeElement} linkStyleLight={linkStyleLight} linkStyleDark={linkStyleDark}/>
+                        <Countries  countries={countries} searchedRegion={searchedRegion} isDarkMode={isDarkMode} darkModeElement={darkModeElement} linkStyleLight={linkStyleLight} linkStyleDark={linkStyleDark} stylePopulationNb={stylePopulationNb}/>
                         </React.Fragment>
                       }
                     </div>

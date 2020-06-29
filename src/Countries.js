@@ -25,7 +25,7 @@ function Countries(props){
               <div className="imgWrap"><img className="countryPic" src={item.flag}/></div>
               <div className="aboutCountry">
                 <div className="countryName">{item.name}</div>
-                <div className="countryPopulation countryInfo"><span className="boldWord">Population:</span> {item.population}</div>
+                <div className="countryPopulation countryInfo"><span className="boldWord">Population:</span> {props.stylePopulationNb(item.population)}</div>
                 <div className="countryRegion countryInfo"><span className="boldWord">Region:</span> {item.region}</div>
                 <div className="countryCapital countryInfo"><span className="boldWord">Capital:</span> {item.capital}</div>
               </div>
@@ -44,7 +44,7 @@ function Countries(props){
               <div className="imgWrap"><img className="countryPic" src={item.flag}/></div>
               <div className="aboutCountry">
                 <div className="countryName">{item.name}</div>
-                <div className="countryPopulation countryInfo"><span className="boldWord">Population:</span> {item.population}</div>
+                <div className="countryPopulation countryInfo"><span className="boldWord">Population:</span> {props.stylePopulationNb(item.population)}</div>
                 <div className="countryRegion countryInfo"><span className="boldWord">Region:</span> {item.region}</div>
                 <div className="countryCapital countryInfo"><span className="boldWord">Capital:</span> {item.capital}</div>
               </div>

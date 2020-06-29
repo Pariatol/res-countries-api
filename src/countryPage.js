@@ -42,7 +42,7 @@ function CountryPage(props){
                                 <span className="boldWord">Native Name: </span>{countryInfos.nativeName}
                             </div>
                             <div className="population infos">
-                            <span className="boldWord">Population: </span>{countryInfos.population}
+                            <span className="boldWord">Population: </span>{props.stylePopulationNb(countryInfos.population)}
                             </div>
                             <div className="region infos">
                             <span className="boldWord">Region: </span>{countryInfos.region}
